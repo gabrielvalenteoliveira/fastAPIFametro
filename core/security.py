@@ -1,7 +1,7 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 
-SECRET_KEY = ""
+SECRET_KEY = "LAKSJ!)@(*&#@12398)ASDJKH!@390h1i230kJH12039hasd!@$))"
 ALGORITHM = "HS256"
 EXPIRATION_MINUTES = 30 
 
@@ -16,3 +16,4 @@ def decode_access_token(token: str):
         return jwt.encode(token, SECRET_KEY, algorithm=ALGORITHM)
     except JWTError:
         return None
+
