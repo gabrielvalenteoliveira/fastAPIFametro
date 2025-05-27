@@ -7,6 +7,7 @@ class UserCreate(BaseModel):
     phone: str
     birthdate: str
     email: EmailStr
+    is_admin: bool
 
 class UserOut(BaseModel):
     name: str
@@ -18,4 +19,4 @@ class UserOut(BaseModel):
 
 class UserLogin(BaseModel):
     email: EmailStr
-    password: str
+    hashed_password: str

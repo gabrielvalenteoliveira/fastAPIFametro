@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status, HTTPException
 from services.user import get_user_by_email, create_user, get_all_users, update_user, delete_user
+from schemas.user import UserOut
 from core.security import create_acess_token, decode_access_token
+from sqlalchemy.orm import Session
 from db.session import Base, engine, SessionLocal
+from models.user import User
 from schemas.user import UserCreate, UserOut, UserLogin
 from utils import hash_password
 from typing import List
@@ -16,8 +19,8 @@ def get_db():
     finally:
         db.close()
 
-@user_router.post("/register/", status_code=HTTP_201_CREATED)
-async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+@user_router.post("/register", status_code=status.HTTP_201_CREATED)
+async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     if user.password:
         if len(user.password) <= 6:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
@@ -33,26 +36,22 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
             detail="CPF já cadastrado, deseja fazer o login?"
         )
-    return create_user(db, user)        
-
-@user_router.post("/login", response_model=UserOut)
-async def login_user(user: UserLogin, db: Session = Depends(get_db)):
-    return 
+    return create_user(user, db)
 
 
-@user_router.get("/get_users/")
-async def read_users(db: Session = Depends(get_db)) -> List[User]:
+@user_router.get("/get_users")
+async def read_users(db: Session = Depends(get_db)):
     return get_all_users(db)
 
 
 
-@user_router.put("/updateuser/{user_id}", response_model=User)
-async def update_user(user_id: int, updated_user: UserCreate, db: Session = Depends(get_db)):
-    return update_user(db, user_id, user_data)
+@user_router.put("/updateuser/{user_id}", response_model=UserOut)
+async def update_a_user(user_id: int, updated_user: UserCreate, db: Session = Depends(get_db)):
+    return update_user(db, user_id, updated_user)
 
 
 @user_router.delete("/deleteuser/{user_id}")
-async def delete_user(user_id: int, db: Session = Depends(get_db)):
+async def remove_user(user_id: int, db: Session = Depends(get_db)):
     return delete_user(db, user_id)
 
 

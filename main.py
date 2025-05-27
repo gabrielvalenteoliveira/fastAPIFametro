@@ -1,8 +1,13 @@
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+from api.v1.endpoints.user import user_router
 from fastapi import FastAPI
+from db.session import Base, engine
+
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 app.include_router(user_router)
 
