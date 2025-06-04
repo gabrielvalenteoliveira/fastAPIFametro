@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from api.v1.endpoints.user import user_router
+from api.v1.endpoints.vehicle import vehicle_router
+from api.api.endpoints.company import company_router
 from fastapi import FastAPI
 from db.session import Base, engine
 

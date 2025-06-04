@@ -19,8 +19,6 @@ def get_db():
     finally:
         db.close()
 
-# o que é oauth2passwordrequestform    
-# o que é o token_type bearer
 @auth_router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = get_user(form_data.name)

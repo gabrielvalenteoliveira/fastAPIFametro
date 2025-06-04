@@ -3,7 +3,7 @@ from services.user import get_user_by_email, create_user, get_all_users, update_
 from schemas.user import UserOut
 from core.security import create_acess_token, decode_access_token
 from sqlalchemy.orm import Session
-from db.session import Base, engine, SessionLocal
+from db.session import SessionLocal
 from models.user import User
 from schemas.user import UserCreate, UserOut, UserLogin
 from utils import hash_password
