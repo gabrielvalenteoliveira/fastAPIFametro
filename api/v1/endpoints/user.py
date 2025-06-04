@@ -50,7 +50,7 @@ async def update_a_user(user_id: int, updated_user: UserCreate, db: Session = De
     return update_user(db, user_id, updated_user)
 
 
-@user_router.delete("/deleteuser/{user_id}")
+@user_router.delete("/deleteuser/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def remove_user(user_id: int, db: Session = Depends(get_db)):
     return delete_user(db, user_id)
 

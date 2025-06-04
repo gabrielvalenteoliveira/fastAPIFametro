@@ -15,7 +15,6 @@ oauth_scheme = OAuth2PasswordBearer(tokenUrl="token")
 def get_user(username:str):
     return db.query(User).filter(User.name == username).first()
 
-
 async def get_current_user(token: str = Depends(oauth_scheme)):
     credentials_exception = HTTPException(
         status_code = status.HTTP_401_UNATHOURIZED,

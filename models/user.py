@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, Date, Boolean
+from sqlalchemy import Column, Integer, String, Date, Boolean, ForegnKe
 from datetime import datetime
 from db.session import Base
-import enum
 
 
 class User(Base):
