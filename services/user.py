@@ -4,9 +4,16 @@ from models.user import User
 from schemas.user import UserCreate
 from utils import hash_password
 from fastapi import HTTPException, status
-
+3
 def get_user_by_email(db: Session, email: str):
-    return db.query(User).filter(User.email == email).first()
+    user = db.query(User).filter(User.email == email).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Usuario não encontrado", 
+        )
+    return user
 
 def create_user(user: UserCreate, db: Session):
         hashed_password = hash_password(user.password)

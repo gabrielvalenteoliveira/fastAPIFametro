@@ -4,16 +4,16 @@ from schemas.vehicle import VehicleCreate
 from fastapi import HTTPException, status
 
 
-def get_car_by_plate(db: Session, plate: str):
+async def get_car_by_plate(db: Session, plate: str):
     return db.query(Vehicle).filter(Vehicle.Plate == plate).first()
 
-def create_vehicle(db: Session, vehicle: VehicleCreate):
+def created_vehicle(db: Session, vehicle: VehicleCreate):
     new_vehicle = Vehicle(
         plate=vehicle.plate,
         renavam=vehicle.renavam,
         brand=vehicle.brand, 
         model=vehicle.model, 
-        year=vehicle.year, 
+        vehicle_year=vehicle.vehicle_year, 
         )
     db.add(new_vehicle)
     db.commit()

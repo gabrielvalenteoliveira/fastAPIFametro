@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey, BigInteger
+from sqlalchemy import Column, String, Integer, ForeignKey, BigInteger
 from db.session import Base
 
 class Vehicle(Base):
@@ -10,4 +10,4 @@ class Vehicle(Base):
     renavam = Column(BigInteger, nullable=False)
     brand = Column(String, nullable=False)
     model = Column(String, nullable=False)
-    year = Column(Date, nullable=False)
+    vehicle_year = Column(Integer, nullable=False)
